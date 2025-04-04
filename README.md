@@ -114,10 +114,3 @@ app/
 - `POST /auth/register` - Register new user
 - `GET /users/me` - Get current user info
 
-## Author
-
-### NIA River
-
-- **Contact the creator**
-  - Email: [nianate@yandex.ru](mailto:nianate@yandex.ru)
-  - GitHub: github.com/NiaRiver/
