@@ -21,6 +21,11 @@ from app.models import User
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
+    """
+    Aсинхронный генератор, создает адаптер для взаимодействия с базой 
+    данных, передавая в качестве параметров экземпляр сессии и класс модели 
+    пользователя
+    """
     yield SQLAlchemyUserDatabase(session, User)
 
 
@@ -39,6 +44,13 @@ auth_backend = AuthenticationBackend(
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
+    """
+    Args:
+        IntegerIDMixin : обеспечивает возможность использования
+            целочисленных id для таблицы пользователей
+        BaseUserManager : этом классе производятся основные действия:
+            аутентификация, регистрация, сброс пароля, верификация и другие.
+    """
     async def validate_password(
             self,
             password,
@@ -60,6 +72,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):
+    """Корутина, возвращающая объект класса UserManager"""
     yield UserManager(user_db)
 
 

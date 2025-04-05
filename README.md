@@ -1,86 +1,88 @@
-# QRKot Charity Fund
+<h1 align='center'> Благотворительный фонд  QRKot  </h1>
 
-QRKot is a FastAPI-based application for a cat charity foundation that helps manage and track donations for various cat-support projects.
+QRKot - это быстрое приложение на основе API для благотворительного фонда кошек, которое помогает управлять пожертвованиями на различные проекты в поддержку кошек и отслеживать их.
 
-## Description
 
-The QRKot Foundation collects donations for various targeted projects aimed at supporting cats, including:
-- Medical services for cats in need
-- Setting up cat colonies
-- Food for abandoned cats
-- Other cat population support initiatives
+<h2 align='center'> Описание  </h2>
 
-## Features
+Фонд QRKot собирает пожертвования для различных целевых проектов, направленных на поддержку cast, в том числе:
+- Медицинские услуги для нуждающихся кошек
+- Создание кошачьих колоний
+- Корм для брошенных кошек
+- Другие инициативы по поддержке популяции кошек
 
-### Projects
-- Multiple charity projects can be active simultaneously
-- Each project has a name, description, and target amount
-- Projects are automatically closed once the target amount is reached
-- Projects follow FIFO (First In, First Out) principle for receiving donations
-- Donations are automatically invested in the earliest opened project
+<h2 align='center'> Особености  </h2>
 
-### Donations
-- Users can make donations with optional comments
-- Donations are not project-specific and go to the common fund
-- Donations are automatically distributed to open projects
-- Excess donations are held for future projects
+### Проекты
+- Несколько благотворительных проектов могут быть активны одновременно
+- У каждого проекта есть название, описание и целевая сумма
+- Проекты автоматически закрываются при достижении целевой суммы
+- Проекты получают пожертвования по принципу FIFO (Кто первый пришел, тот и вышел)
+- Пожертвования автоматически инвестируются в самый ранний открытый проект
 
-### User Roles
-- **Anonymous Users**: Can view all projects
-- **Registered Users**: Can make donations and view their donation history
-- **Administrators**: Can create projects, delete unfunded projects, and modify existing projects
+### Пожертвования Особености
 
-## Technical Stack
+- Пользователи могут делать пожертвования с необязательными комментариями
+- Пожертвования не привязаны к конкретному проекту и идут в общий фонд
+- Пожертвования автоматически распределяются по открытым проектам
+- Излишки пожертвований сохраняются для будущих проектов
 
-- FastAPI
+### Роли пользователей
+
+- ** Анонимные пользователи **: Могут просматривать все проекты
+- ** Зарегистрированные пользователи **: Могут делать пожертвования и просматривать историю своих пожертвований
+- **Администраторы **: Могут создавать проекты, удалять нефинансируемые проекты и изменять существующие проекты
+
+<h2 align='center'> Технический стек  </h2>
+
+- Быстрый API
 - SQLAlchemy
-- FastAPI Users
+- Пользователи FastAPI
 - Pydantic
-- JWT authentication
+- Аутентификация JWT
 
-## Installation
+ <h2 align='center'> Установка </h2>
 
-1. Clone the repository:
+1. Клонируйте репозиторий:
 ```bash
-git clone git@github.com:NiaRiver/cat_charity_fund.git && \
+git clone git@github.com:Blathata/cat_charity_fund.git && \
 cd cat_charity_fund
 ```
 
-2. Create and activate virtual environment:
+2. Создайте и активируйте виртуальную среду:
 ```bash
 python -m venv venv
 source venv/bin/activate  # For Linux/macOS
 venv\Scripts\activate     # For Windows
 ```
 
-3. Install dependencies:
+3. Установите зависимости:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Create `.env` file in the root directory with the following variables:
+4. Создайте файл `.env` в корневом каталоге со следующими переменными:
 ```
 DATABASE_URL=sqlite+aiosqlite:///./fastapi.db
 SECRET=your_secret_key
 ```
+<h2 align='center'> Запуск приложения  </h2>
 
-## Running the Application
-
-1. Getting db ready:
+1. Подготовка базы данных к работе:
 ```bash
 alembic upgrade head
 ```
 
-2. Start the server:
+2. Запустите сервер:
 ```bash
 uvicorn app.main:app --reload
 ```
 
-3. Access the API documentation:
+3. Получите доступ к документации по API:
 - [Swagger UI Documentation](http://localhost:8000/docs)
 - [ReDoc Documentation](http://localhost:8000/redoc)
 
-## Project Structure
+<h2 align='center'> Структура проекта  </h2>
 
 ```
 app/
@@ -96,21 +98,25 @@ app/
 └── main.py            # Application entry point
 ```
 
-## API Endpoints
+<h2 align='center'> Конечные точки API  </h2>
 
-### Projects
-- `GET /charity_project/` - List all projects
-- `POST /charity_project/` - Create new project (admin only)
-- `DELETE /charity_project/{project_id}/` - Delete project (admin only)
-- `PATCH /charity_project/{project_id}/` - Update project (admin only)
+### Проекты 
 
-### Donations
-- `GET /donation/` - List user's donations
-- `GET /donation/my` - List authenticated user's donations
-- `POST /donation/` - Make a donation
+- `GET /charity_project/` - Список всех проектов
+- `POST /charity_project/` -  Создать новый проект (только для администратора)
+- `DELETE /charity_project/{project_id}/` - Удалить проект (только для администратора)
+- `PATCH /charity_project/{project_id}/` -  Обновить проект (только для администратора)
 
-### Authentication
-- `POST /auth/jwt/login` - Get JWT token
-- `POST /auth/register` - Register new user
-- `GET /users/me` - Get current user info
+### Пожертвования
 
+- `GET /donation/` -  Список пожертвований пользователя
+- `GET /donation/my` -  Список пожертвований пользователя, прошедшего проверку подлинности
+- `POST /donation/` -  Сделать пожертвование
+
+### Аутентификация
+
+- `POST /auth/jwt/login` - Получить токен JWT
+- `POST /auth/register` - Зарегистрировать нового пользователя
+- `- `GET /users/me" - Получить текущую информацию о пользователе
+
+Проект разработал Брежнев Иван (https://github.com/Blathata).

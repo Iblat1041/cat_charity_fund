@@ -1,13 +1,15 @@
-from sqlalchemy import Column, String, Text
+from sqlalchemy import (
+    Boolean, Column, String, Text, DateTime, Integer, func
+)
 
 from app.core.db import Base
-from .base import CharityDonationBase
 
 
-class CharityProject(Base, CharityDonationBase):
+class CharityProject(Base):
     name = Column(String(100), unique=True, nullable=False)
     description = Column(Text, nullable=False)
-
-    def __repr__(self):
-        return (f"{super().__repr__()}"
-                f"{self.name=}, {self.description=}")
+    full_amount = Column(Integer, nullable=False)
+    invested_amount = Column(Integer, default=0, nullable=False)
+    fully_invested = Column(Boolean, default=False, nullable=False)
+    create_date = Column(DateTime, server_default=func.now(), nullable=False)
+    close_date = Column(DateTime, nullable=True)
