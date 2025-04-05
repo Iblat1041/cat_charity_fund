@@ -9,7 +9,7 @@ main_router.include_router(
 )
 
 main_router.include_router(
-    charity_router, 
+    charity_router,
     prefix="/charity_project",
     tags=["Charity Projects"],
 )
