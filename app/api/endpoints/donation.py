@@ -8,7 +8,6 @@ from app.models.user import User
 from app.schemas.donations import (
     DonationCreate, DonationRepresintation, SUDonationRepresintation
 )
-from app.services.investment import invest
 
 router = APIRouter()
 
@@ -56,14 +55,11 @@ async def create_donation(
     donation = await dontions_crud.create(
         donation, False, user, session=session
     )
-    session.add_all(
-        invest(
-            donation,
-            await charity_projects_crud.get_all_open(
-                session
-            )
+
+    await charity_projects_crud.add_invest(
+        obj_new = donation, 
+        db_objs_all = await charity_projects_crud.get_all_open(session), 
+        session = session
         )
-    )
-    await session.commit()
-    await session.refresh(donation)
+
     return donation

@@ -5,6 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import User
+from app.services.investment import invest
 
 
 class CRUDBase:
@@ -83,3 +84,15 @@ class CRUDBase:
         await session.delete(db_obj)
         await session.commit()
         return db_obj
+
+    async def add_invest(
+        self,
+        obj_new,
+        db_objs_all,
+        session: AsyncSession
+        ):
+        session.add_all(invest(obj_new, db_objs_all))
+        await session.commit()
+        await session.refresh(obj_new)
+        return obj_new
+ 

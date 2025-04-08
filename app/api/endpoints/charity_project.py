@@ -16,7 +16,6 @@ from app.crud import charity_projects_crud, dontions_crud
 from app.schemas.charity_projects import (
     CharityRepresintation, CharityCreate, CharityUpdate
 )
-from app.services.investment import invest
 
 router = APIRouter()
 
@@ -35,14 +34,13 @@ async def create_new_charity_project(
     project = await charity_projects_crud.create(
         charity_project_obj, False, session=session
     )
-    session.add_all(
-        invest(
-            project,
-            await dontions_crud.get_all_open(session)
+
+    await charity_projects_crud.add_invest(
+        obj_new = project, 
+        db_objs_all = await dontions_crud.get_all_open(session), 
+        session = session
         )
-    )
-    await session.commit()
-    await session.refresh(project)
+
     return project
 
 
@@ -80,10 +78,8 @@ async def partialy_update_charity_project(
     if obj_in.full_amount == project.invested_amount:
         project.fully_invested = True
         project.close_date = dt.now()
-    project = await charity_projects_crud.update(
-        project, obj_in, session
-    )
-    return project
+
+    return await charity_projects_crud.update(project, obj_in, session)
 
 
 @router.delete(
@@ -95,9 +91,7 @@ async def remove_charity_project(
     session: AsyncSession = Depends(get_async_session)
 ):
     charity_project = await check_charity_project_exists(project_id, session)
+
     await check_project_not_invested_yet(project_id, session)
-    charity_project = await charity_projects_crud.remove(
-        charity_project,
-        session
-    )
-    return charity_project
+
+    return await charity_projects_crud.remove(charity_project, session)
