@@ -1,4 +1,4 @@
-from sqlalchemy import (Column, ForeignKey, Text,Integer)
+from sqlalchemy import (Column, ForeignKey, Text, Integer)
 
 from app.core.db import Base
 from app.models.base import CharityDonationBase

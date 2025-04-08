@@ -57,9 +57,9 @@ async def create_donation(
     )
 
     await charity_projects_crud.add_invest(
-        obj_new = donation, 
-        db_objs_all = await charity_projects_crud.get_all_open(session), 
-        session = session
-        )
+        obj_new=donation,
+        db_objs_all=await charity_projects_crud.get_all_open(session),
+        session=session
+    )
 
     return donation

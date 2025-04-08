@@ -36,10 +36,10 @@ async def create_new_charity_project(
     )
 
     await charity_projects_crud.add_invest(
-        obj_new = project, 
-        db_objs_all = await dontions_crud.get_all_open(session), 
-        session = session
-        )
+        obj_new=project,
+        db_objs_all=await dontions_crud.get_all_open(session),
+        session=session
+    )
 
     return project
 

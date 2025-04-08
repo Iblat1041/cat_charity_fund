@@ -40,6 +40,7 @@ def get_jwt_strategy() -> JWTStrategy:
         lifetime_seconds=Limits.JWT_TOKEN_LIFETIME.value
     )
 
+
 auth_backend = AuthenticationBackend(
     name="jwt",
     transport=bearer_transport,

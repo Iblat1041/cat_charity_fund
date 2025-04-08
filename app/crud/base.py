@@ -90,9 +90,8 @@ class CRUDBase:
         obj_new,
         db_objs_all,
         session: AsyncSession
-        ):
+    ):
         session.add_all(invest(obj_new, db_objs_all))
         await session.commit()
         await session.refresh(obj_new)
         return obj_new
- 
