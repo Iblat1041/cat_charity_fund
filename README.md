@@ -40,6 +40,7 @@ QRKot - это быстрое приложение на основе API для 
 - Пользователи FastAPI
 - Pydantic
 - Аутентификация JWT
+- AIOGoogle
 
  <h2 align='center'> Установка </h2>
 
@@ -84,21 +85,6 @@ uvicorn app.main:app --reload
 
 <h2 align='center'> Структура проекта  </h2>
 
-```
-app/
-├── core/
-│   ├── config.py        # Application settings
-│   ├── db.py           # Database configuration
-│   └── user.py         # User management
-├── crud/               # CRUD operations
-├── models/             # Database models
-├── schemas/            # Pydantic models
-├── api/                # API endpoints
-├── services/          # Business logic
-└── main.py            # Application entry point
-```
-
-<h2 align='center'> Конечные точки API  </h2>
 
 ### Проекты 
 
@@ -113,10 +99,13 @@ app/
 - `GET /donation/my` -  Список пожертвований пользователя, прошедшего проверку подлинности
 - `POST /donation/` -  Сделать пожертвование
 
+### GOOGLE Cloud Api Services
+- POST /google - Create projects completion rate report spreadsheet
+
 ### Аутентификация
 
 - `POST /auth/jwt/login` - Получить токен JWT
 - `POST /auth/register` - Зарегистрировать нового пользователя
-- `- `GET /users/me" - Получить текущую информацию о пользователе
+- `GET /users/me"` - Получить текущую информацию о пользователе
 
 Проект разработал Брежнев Иван (https://github.com/Blathata).
