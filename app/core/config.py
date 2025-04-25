@@ -7,7 +7,11 @@ load_dotenv(override=True)
 
 
 class Settings(BaseSettings):
-    app_title: str = "Charity Project"
+    app_title: str = 'QRkot'
+    app_description: str = 'Приложение для Благотворительного фонда ' \
+                           'поддержки котиков QRKot'
+    database_url: str = 'sqlite+aiosqlite:///./fastapi.db'
+    secret: str = 'SECRET'
     auth_provider_x509_cert_url: Optional[str] = None
     auth_uri: Optional[str] = None
     client_email: Optional[str] = None
@@ -20,7 +24,6 @@ class Settings(BaseSettings):
     private_key: Optional[str] = None
     private_key_id: Optional[str] = None
     project_id: Optional[str] = None
-    secret: str = "SERCET_KEY"
     token_uri: Optional[str] = None
     type: Optional[str] = None
 
