@@ -17,7 +17,6 @@ class Settings(BaseSettings):
     client_email: Optional[str] = None
     client_id: Optional[str] = None
     client_x509_cert_url: Optional[str] = None
-    database_url: str = "sqlite+aiosqlite:///./cat_charities.db"
     email: Optional[str] = None
     first_superuser_email: Optional[EmailStr] = None
     first_superuser_password: Optional[str] = None
