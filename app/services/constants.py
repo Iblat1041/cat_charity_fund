@@ -12,3 +12,13 @@ class Limits(Enum):
     CHARITY_CREATE_NAME_MIN_LEN = 1
     CHARITY_CREATE_NAME_MAX_LEN = 100
     CHARITY_CREATE_DES_MIN_LEN = 1
+
+    ROW_COUNT = 100
+    COLUMN_COUNT = 11
+
+    LIMIT = 10
+    OFFSET = 0
+
+
+class Constants(object):
+    FORMAT = "%Y/%m/%d %H:%M:%S"

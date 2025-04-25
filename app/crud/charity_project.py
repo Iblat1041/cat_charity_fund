@@ -24,6 +24,10 @@ class CRUDCharityProject(CRUDBase):
         offset: int = None, *,
         session: AsyncSession
     ) -> list[CharityProject]:
+        """
+        Cортирует список со всеми закрытыми проектами по количеству времени,
+        которое понадобилось на сбор средств, — от меньшего к большему.
+        """
         projects = await session.execute(
             select(
                 CharityProject.name,

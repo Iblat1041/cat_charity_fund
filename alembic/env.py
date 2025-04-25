@@ -8,6 +8,7 @@ from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from alembic import context
+from app.core.base import Base
 
 # Импортируем базовый класс Base.
 from app.core.db import Base
@@ -32,6 +33,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 # Присвоим переменной target_metadata объект класса MetaData из Base.
 target_metadata = Base.metadata
+# print(target_metadata.tables)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

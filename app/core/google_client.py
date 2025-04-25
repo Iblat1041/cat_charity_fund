@@ -23,5 +23,10 @@ cred = ServiceAccountCreds(scopes=SCOPES, **INFO)
 
 
 async def get_service():
+    """
+    Aiogoogle — это асинхронный клиент Google API,
+        который позволяет пользователям
+    получать доступ к различным публичным API Google.
+    """
     async with Aiogoogle(service_account_creds=cred) as aiogoogle:
         yield aiogoogle

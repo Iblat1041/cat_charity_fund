@@ -9,6 +9,7 @@ from app.core.google_client import get_service
 from app.core.user import current_superuser
 from app.crud import charity_projects_crud
 from app.services import google_api
+from app.services.constants import Limits
 
 router = APIRouter()
 
@@ -19,11 +20,21 @@ router = APIRouter()
     dependencies=[Depends(current_superuser)]
 )
 async def get_report(
-    limit: int = 10,
-    offset: int = 0,
+    limit: int = Limits.LIMIT.value,
+    offset: int = Limits.LIMIT.value,
     session: AsyncSession = Depends(get_async_session),
     wrapper_services: Aiogoogle = Depends(get_service)
 ):
+    """Обрабатывает запрос, отправленный методом POST.
+
+    Args:
+        limit (int, optional): возвращает первые 10 строк
+        offset (int, optional): пропускает указаное число строк
+        session : объект AsyncSession для работы с асинхронными сессиями;
+        wrapper_services : Aiogoogle — объект «обёртки», передаётся из настроек
+    Returns:
+        _type_: _description_
+    """
     reservations = await charity_projects_crud.get_projects_by_completion_rate(
         limit, offset, session=session
     )

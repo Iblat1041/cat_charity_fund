@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Extra, Field, validator
 
-from services.constants import Limits
+from app.services.constants import Limits
 
 
 class CharityBase(BaseModel):

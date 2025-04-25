@@ -19,7 +19,7 @@ from app.core.config import settings
 from app.core.db import get_async_session
 from app.models import User
 
-from services.constants import Limits
+from app.services.constants import Limits
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):

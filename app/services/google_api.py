@@ -5,10 +5,9 @@ from datetime import timedelta as delta
 from aiogoogle import Aiogoogle
 
 from app.core.config import settings
+from app.services.constants import Limits, Constants
 
-FORMAT = "%Y/%m/%d %H:%M:%S"
-ROW_COUNT = 100
-COLUMN_COUNT = 11
+
 SPREADSHEET_BODY = dict(
     properties=dict(
         title="Отчёт на {date}",
@@ -20,8 +19,8 @@ SPREADSHEET_BODY = dict(
             sheetId=0,
             title="Лист1",
             gridProperties=dict(
-                rowCount=ROW_COUNT,
-                columnCount=COLUMN_COUNT
+                rowCount=Limits.ROW_COUNT.value,
+                columnCount=Limits.COLUMN_COUNT.value
             )
         )
     )]
@@ -34,7 +33,14 @@ TABLE_HEADER = [
 
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
-    now_dt = dt.now().strftime(FORMAT)
+    """ Cоздания гугл-таблицы с отчётом на диске вашего сервисного аккаунта
+    Args:
+        wrapper_services (Aiogoogle): Пользовательские данные API Google
+
+    Returns:
+        str: _description_
+    """
+    now_dt = dt.now().strftime(Constants.FORMAT)
     service = await wrapper_services.discover("sheets", "v4")
     spreadsheet_body = deepcopy(SPREADSHEET_BODY)
     spreadsheet_body["properties"]["title"] = spreadsheet_body[
@@ -50,6 +56,13 @@ async def set_user_permissions(
     spreadsheetid: str,
     wrapper_services: Aiogoogle
 ) -> None:
+    """выдачи прав вашему личному аккаунту на документы, которые вы создадите
+    на диске сервисного аккаунта
+
+    Args:
+        spreadsheetid (str): _description_
+        wrapper_services (Aiogoogle): Пользовательские данные API Google
+    """
     permissions_body = {
         "type": "user",
         "role": "writer",
@@ -70,7 +83,8 @@ async def spreadsheets_update_value(
     projects: list,
     wrapper_services: Aiogoogle
 ) -> list[dict[str, str]]:
-    now_dt = dt.now().strftime(FORMAT)
+    """Обновляет данные в гугл-таблице"""
+    now_dt = dt.now().strftime(Constants.FORMAT)
     service = await wrapper_services.discover(
         "sheets", "v4"
     )
