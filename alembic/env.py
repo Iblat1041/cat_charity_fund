@@ -10,8 +10,6 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 from alembic import context
 from app.core.base import Base
 
-# Импортируем базовый класс Base.
-from app.core.db import Base
 
 load_dotenv('.env')
 
