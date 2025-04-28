@@ -53,4 +53,7 @@ async def get_report(
             status_code=status.HTTP_412_PRECONDITION_FAILED,
             detail=f"Возникла ошибка: {e}"
         )
-    return dict(spreadsheet_id=spreadsheet_id, spreadsheet_url=spreadsheet_url)
+    return {
+        'spreadsheet_id': spreadsheet_id,
+        'spreadsheet_url': spreadsheet_url
+    }

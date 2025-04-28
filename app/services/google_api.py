@@ -94,15 +94,15 @@ async def spreadsheets_update_value(
     table_values = deepcopy(TABLE_HEADER)
     table_values[0][1] = table_values[0][1].format(date=now_dt)
     table_values.extend([[
-        str(project["name"]),
+        project["name"],
         str(delta(days=project["open_duration"])),
-        str(project["description"])
+        project["description"]
     ] for project in projects])
     sheet_dims = sheet_data["sheets"][0]["properties"]["gridProperties"]
-    update_dims = dict(
-        rowCount=len(table_values),
-        columnCount=max(len(row) for row in table_values)
-    )
+    update_dims = {
+        'rowCount': len(table_values),
+        'columnCount': max(len(row) for row in table_values)
+    }
     for dim, value in update_dims.items():
         if value > sheet_dims[dim]:
             dim_name = "строк" if dim == "rowCount" else "колонок"
@@ -110,10 +110,10 @@ async def spreadsheets_update_value(
                              f"{dim_name.capitalize()} отчета больше "
                              f"{dim_name} листа. "
                              f"{value} > {sheet_dims[dim]}")
-    update_body = dict(
-        majorDimension="ROWS",
-        values=table_values
-    )
+    update_body = {
+        'majorDimension': "ROWS",
+        'values': table_values
+    }
     await wrapper_services.as_service_account(
         service.spreadsheets.values.update(
             spreadsheetId=spreadsheet_id,
